@@ -1,0 +1,44 @@
+package com.cts.battery;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import org.json.simple.JSONObject;
+
+public class App 
+{
+    @SuppressWarnings("resource")
+	public static void main( String[] args ) throws IOException
+    {
+    	BufferedReader br = new BufferedReader(new FileReader("C:/Users/super/Downloads/Battery.txt"));
+	
+		int count=1;
+		
+		while(count<194) {
+			br.readLine();
+			count++;
+		}
+		
+		String line=br.readLine();
+		String[] columns=line.split(": ");
+
+		
+		 writeJsonSimpleDemo("abcd.json", columns[1]);
+    }
+
+	@SuppressWarnings("unchecked")
+	private static void writeJsonSimpleDemo(String filename,String foreground) throws IOException {
+		// TODO Auto-generated method stub
+		
+		JSONObject result=new JSONObject();
+		
+		result.put("Foreground_time", foreground);
+		System.out.println(result);
+		
+		Files.write(Paths.get(filename),result.toJSONString().getBytes());
+		
+	}
+}
